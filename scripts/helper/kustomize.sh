@@ -8,8 +8,10 @@ VERSION="${GO_VERSION:-$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].vers
 # Install go
 wget https://golang.org/dl/go1.24.6.linux-"${ARCH}".tar.gz
 rm -rf /usr/local/go && tar -C /usr/local -xvzf go1.24.6.linux-"${ARCH}".tar.gz
-export PATH=/usr/local/go/bin:$PATH
-
+BASHRC="$HOME/.bashrc"
+grep -qxF 'export PATH=/usr/local/go/bin:$PATH' "$BASHRC" || echo 'export PATH=/usr/local/go/bin:$PATH' >> "$BASHRC"
+# Reload bashrc
+source "$BASHRC"
 # Verify go version
 go version
 
